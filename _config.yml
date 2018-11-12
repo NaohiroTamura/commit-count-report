@@ -11,3 +11,8 @@ exclude:
   - package.json
   - package-lock.json
   - yarn.lock
+webrick:
+  headers:
+    Access-Control-Allow-Origin: "*"
+    Access-Control-Request-Method: "GET, POST, PATCH, PUT, DELETE, OPTIONS"
+    Access-Control-Allow-Headers: "Origin, Content-Type, X-Auth-Token, Authorization"
