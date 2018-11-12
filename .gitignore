@@ -1,0 +1,14 @@
+.*.swp
+.*sw?
+*~
+TAGS
+GPATH
+GRTAGS
+GTAGS
+_site/
+Gemfile.lock
+vendor/
+node_modules
+.sass-cache
+assets/vendor
+
