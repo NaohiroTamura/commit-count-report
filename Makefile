@@ -18,4 +18,4 @@ serve: install include-npm-deps
 	JEKYLL_ENV=production $(JEKYLL) serve
 
 generate-githubpages:
-	rm -fr docs && JEKYLL_ENV=production $(JEKYLL) build --baseurl https://naohirotamura.github.io/commit-count-report/ -d docs/ && touch docs/.nojekyll
+	rm -fr docs && JEKYLL_ENV=production $(JEKYLL) build --baseurl https://naohirotamura.github.io/commit-count-report -d docs/ && touch docs/.nojekyll

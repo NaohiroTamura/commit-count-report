@@ -10,3 +10,6 @@ I should be using the custom font size defined at SCSS variables
 
 Hey look I am using a Bootstrap variable color!
 {: .primarycolor}
+
+This is the last line.
+{: .text-primary}
