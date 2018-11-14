@@ -7,7 +7,7 @@ GRTAGS
 GTAGS
 _site/
 Gemfile.lock
-vendor/
+vendor/bundle
 node_modules
 .sass-cache
 assets/vendor
