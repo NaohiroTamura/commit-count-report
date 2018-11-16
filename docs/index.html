@@ -32,20 +32,27 @@ $(document).ready(function(){
         console.log("button clicked");
         $.ajax({
             async: true,
-            type: "GET",
-            url: "http://127.0.0.1:8080/",
-            // username and password didn't work, but Authorization header
-            // username: "ec29e90c-188d-11e8-bb72-00163ec1cd01",
-            // password: "0b82fe63b6bd450519ade02c3cb8f77ee581f25a810db28f3910e6cdd9d041bf",
+            type: 'POST',
+            url: 'http://127.0.0.1:8080/statemachine/commit_count_report.json?blocking=true',
             headers: {
                 'Authorization': 'Basic ' + btoa('ec29e90c-188d-11e8-bb72-00163ec1cd01:0b82fe63b6bd450519ade02c3cb8f77ee581f25a810db28f3910e6cdd9d041bf')
             },
-            data: {},
-            dataType: "json", // PreFlight
-            // crossDomain: true, // it's for JSONP
-            xhrFields: {
-                // withCredentials: true // it's for CORS Cookie
-            }
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({
+                input: {
+                    github: {
+                        target: 'fujitsu.com',
+                        owner: '"naohirotamura"',
+                        name: '"faasshell"',
+                        since: '"2018-06-21T00:00:00+00:00"',
+                        until: '"2018-07-20T00:00:00+00:00"'
+                    },
+                    gsheet: {
+                        sheetId: '1ywCxG8xTKOYK89AEZIqgpTvbvpbrb1s4H_bMVvKV59I'
+                    }
+                }
+            }),
+            dataType: 'json', // PreFlight
         }).done(function(data, status){
             console.log("Data: " + JSON.stringify(data) + "\nStatus: " + status);
         }).fail(function(xhr, status, error){
