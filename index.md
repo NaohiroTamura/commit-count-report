@@ -1,37 +1,89 @@
 ---
 layout: default
 ---
+# Commit Count Report
 
-Example page
+FaaS Shell sample [Commit Count Report][1] Web GUI. *GET Commit Count* button privdes the same effect as the following git command:
 
+```sh
+$ git clone https://github.com/NaohiroTamura/faasshell
+$ cd faasshell
+$ git log --since=2018/6/21T00:00:00+00:00 --until=2018/7/20T00:00:00+00:00 --no-merges --format=%ae | grep fujitsu.com | wc -l
+```
 
-I should be using the custom font size defined at SCSS variables
-{: .content}
+All results are logged into [Google Sheets][2]{: target="_blank"}.
 
-Hey look I am using a Bootstrap variable color!
-{: .primarycolor}
+[1]: https://github.com/NaohiroTamura/faasshell/blob/master/samples/demo_commit_count_report.md "Commit Count Report"
+[2]: https://docs.google.com/spreadsheets/d/1ywCxG8xTKOYK89AEZIqgpTvbvpbrb1s4H_bMVvKV59I/edit#gid=0 "Google Sheets"
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="jumbotron">
+
+<label for="github-url">GitHub Repository URL</label>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">https://github.com/</span>
+    </div>
+        <input type="text" class="form-control" id="github-url" placeholder="naohirotamura/faasshell" aria-describedby="basic-addon1">
+    </div>
+
+<label for="commiter-search">Commiter's search string</label>
+<div class="input-group mb-3">
+    <input type="text" class="form-control" id="commter-search" placeholder="fujitsu.com" aria-label="fujitsu.com">
+</div>
+
+<label for="basic-url">Search Duration</label>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon3">Since</span>
+    </div>
+    <input type="text" class="form-control" id="date-since" placeholder="2018-06-21T00:00:00+00:00" aria-label="Since" aria-describedby="basic-addon3">
+</div>
 
 <div class="input-group mb-3">
     <div class="input-group-prepend">
-        <span class="input-group-text" id="basic-addon1">@</span>
+        <span class="input-group-text" id="basic-addon4">Until</span>
     </div>
-    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+    <input type="text" class="form-control" id="date-until" placeholder="2018-07-20T00:00:00+00:00" aria-label="Until" aria-describedby="basic-addon4">
 </div>
 
-This is the last line.
-{: .text-primary}
+<div class="input-group mb-3">
+    <button id="mybutton" class="btn btn-primary btn-large">GET Commit Count</button>
+</div>
 
-<button id="mybutton">Send an HTTP GET request to a page and get the result back</button>
+<label for="search-result">Result</label>
+<div class="input-group mb-3">
+    <input type="text" class="form-control" id="search-result">
+</div>
+
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
 $(document).ready(function(){
     console.log("button action loading");
+    console.log(`#commter-search = "${$('#commter-search').val()}"`);
+    console.log(`#github-url = "${$('#github-url').val()}"`);
+    console.log(`#date-since = "${$('#date-since').val()}"`);
+    console.log(`#date-until = "${$('#date-until').val()}"`);
     $("#mybutton").click(function(){
         console.log("button clicked");
+        console.log(`#commter-search = "${$('#commter-search').val()}"`);
+        console.log(`#github-url = "${$('#github-url').val()}"`);
+        let github = $('#github-url').val().split('/');
+        console.log(`owner = ${github[0]}`);
+        console.log(`name = ${github[1]}`);
+        console.log(`#date-since = "${$('#date-since').val()}"`);
+        console.log(`#date-until = "${$('#date-until').val()}"`);
         $.ajax({
             async: true,
             type: 'POST',
             url: 'https://faasshell-faasshell.7e14.starter-us-west-2.openshiftapps.com/statemachine/commit_count_report.json?blocking=true',
+            //url: 'http://127.0.0.1:8080/statemachine/commit_count_report.json?blocking=true',
             headers: {
                 'Authorization': 'Basic ' + btoa('ec29e90c-188d-11e8-bb72-00163ec1cd01:0b82fe63b6bd450519ade02c3cb8f77ee581f25a810db28f3910e6cdd9d041bf')
             },
@@ -39,11 +91,11 @@ $(document).ready(function(){
             data: JSON.stringify({
                 input: {
                     github: {
-                        target: 'fujitsu.com',
-                        owner: '"naohirotamura"',
-                        name: '"faasshell"',
-                        since: '"2018-06-21T00:00:00+00:00"',
-                        until: '"2018-07-20T00:00:00+00:00"'
+                        target: $('#commter-search').val(),       // 'fujitsu.com',
+                        owner: `"${github[0]}"`,                  // '"naohirotamura"',
+                        name:  `"${github[1]}"`,                  // '"faasshell"',
+                        since: `"${$('#date-since').val()}"`,     // '"2018-06-21T00:00:00+00:00"',
+                        until: `"${$('#date-until').val()}"`,     // '"2018-07-20T00:00:00+00:00"'
                     },
                     gsheet: {
                         sheetId: '1ywCxG8xTKOYK89AEZIqgpTvbvpbrb1s4H_bMVvKV59I'
@@ -53,8 +105,11 @@ $(document).ready(function(){
             dataType: 'json', // PreFlight
         }).done(function(data, status){
             console.log("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+            $('#search-result').val(data.output.github.output.values[0][5]);
+            console.log("Result: " + data.output.github.output.values[0][5] + "\n");
         }).fail(function(xhr, status, error){
             console.log("Failed: " + error + "\nStatus: " + status);
+            $('#search-result').val(status);
         });
         console.log("button action done");
     });
