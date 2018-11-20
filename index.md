@@ -8,7 +8,7 @@ FaaS Shell sample [Commit Count Report][1] Web GUI. *GET Commit Count* button pr
 ```sh
 $ git clone https://github.com/NaohiroTamura/faasshell
 $ cd faasshell
-$ git log --since=2018/6/21T00:00:00+00:00 --until=2018/7/20T00:00:00+00:00 --no-merges --format=%ae | grep fujitsu.com | wc -l
+$ git log --since=2018-06-21T00:00:00+00:00 --until=2018-07-20T00:00:00+00:00 --no-merges --format=%ae | grep fujitsu.com | wc -l
 ```
 
 All results are logged into [Google Sheets][2]{: target="_blank"}.
