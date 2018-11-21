@@ -35,10 +35,10 @@
 
 <label for="commiter-search">Commiter's search string</label>
 <div class="input-group mb-3">
-    <input type="text" class="form-control" id="commter-search" placeholder="fujitsu.com" aria-label="fujitsu.com" />
+    <input type="text" class="form-control" id="commiter-search" placeholder="fujitsu.com" aria-label="fujitsu.com" />
 </div>
 
-<label for="basic-url">Search Duration</label>
+<label for="basic-url">Search Duration (Option)</label>
 <div class="input-group mb-3">
     <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon3">Since</span>
@@ -70,19 +70,20 @@
 <script>
 $(document).ready(function(){
     console.log("button action loading");
-    console.log(`#commter-search = "${$('#commter-search').val()}"`);
-    console.log(`#github-url = "${$('#github-url').val()}"`);
-    console.log(`#date-since = "${$('#date-since').val()}"`);
-    console.log(`#date-until = "${$('#date-until').val()}"`);
+    console.log(`#commiter-search = ${$('#commiter-search').val()}`);
+    console.log(`#github-url = ${$('#github-url').val()}`);
+    console.log(`#date-since = ${$('#date-since').val()}`);
+    console.log(`#date-until = ${$('#date-until').val()}`);
     $("#mybutton").click(function(){
         console.log("button clicked");
-        console.log(`#commter-search = "${$('#commter-search').val()}"`);
-        console.log(`#github-url = "${$('#github-url').val()}"`);
+        $('#search-result').val("");
+        console.log(`#commiter-search = ${$('#commiter-search').val()}`);
+        console.log(`#github-url = ${$('#github-url').val()}`);
         let github = $('#github-url').val().split('/');
         console.log(`owner = ${github[0]}`);
         console.log(`name = ${github[1]}`);
-        console.log(`#date-since = "${$('#date-since').val()}"`);
-        console.log(`#date-until = "${$('#date-until').val()}"`);
+        console.log(`#date-since = ${$('#date-since').val()}`);
+        console.log(`#date-until = ${$('#date-until').val()}`);
         $.ajax({
             async: true,
             type: 'POST',
@@ -95,11 +96,11 @@ $(document).ready(function(){
             data: JSON.stringify({
                 input: {
                     github: {
-                        target: $('#commter-search').val(),       // 'fujitsu.com',
-                        owner: `"${github[0]}"`,                  // '"naohirotamura"',
-                        name:  `"${github[1]}"`,                  // '"faasshell"',
-                        since: `"${$('#date-since').val()}"`,     // '"2018-06-21T00:00:00+00:00"',
-                        until: `"${$('#date-until').val()}"`,     // '"2018-07-20T00:00:00+00:00"'
+                        target: $('#commiter-search').val(),       // 'fujitsu.com',
+                        owner:  github[0],                        // 'naohirotamura',
+                        name:   github[1],                        // 'faasshell',
+                        since:  $('#date-since').val(),           // '2018-06-21T00:00:00+00:00',
+                        until:  $('#date-until').val(),           // '2018-07-20T00:00:00+00:00'
                     },
                     gsheet: {
                         sheetId: '1ywCxG8xTKOYK89AEZIqgpTvbvpbrb1s4H_bMVvKV59I'
