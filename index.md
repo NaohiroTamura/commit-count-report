@@ -83,7 +83,7 @@ $(document).ready(function(){
         $.ajax({
             async: true,
             type: 'POST',
-            url: 'https://faasshell-faasshell.7e14.starter-us-west-2.openshiftapps.com/statemachine/commit_count_report.json?blocking=true',
+            url: 'https://protected-depths-49487.herokuapp.com/statemachine/commit_count_report.json?blocking=true',
             //url: 'http://127.0.0.1:8080/statemachine/commit_count_report.json?blocking=true',
             headers: {
                 'Authorization': 'Basic ' + btoa('ec29e90c-188d-11e8-bb72-00163ec1cd01:0b82fe63b6bd450519ade02c3cb8f77ee581f25a810db28f3910e6cdd9d041bf')
