@@ -3,7 +3,7 @@ layout: default
 ---
 # Commit Count Report
 
-FaaS Shell sample [Commit Count Report][1] Web GUI. *GET Commit Count* button privdes the same effect as the following git command:
+FaaS Shell sample [Commit Count Report][1] Web GUI. *Get Commit Count* button privdes the same effect as the following git command:
 
 ```sh
 $ git clone https://github.com/NaohiroTamura/faasshell
@@ -50,7 +50,10 @@ All results are logged into [Google Sheets][2]{: target="_blank"}.
 </div>
 
 <div class="input-group mb-3">
-    <button id="mybutton" class="btn btn-primary btn-large">GET Commit Count</button>
+  <button id="mybutton" class="btn btn-primary btn-large">Get Commit Count</button>
+  <div id="myspinner" class="spinner-border text-primary ml-3" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
 </div>
 
 <label for="search-result">Result</label>
@@ -70,6 +73,7 @@ $(document).ready(function(){
     console.log(`#github-url = ${$('#github-url').val()}`);
     console.log(`#date-since = ${$('#date-since').val()}`);
     console.log(`#date-until = ${$('#date-until').val()}`);
+    $("#myspinner").hide();
     $("#mybutton").click(function(){
         console.log("button clicked");
         $('#search-result').val("");
@@ -80,6 +84,7 @@ $(document).ready(function(){
         console.log(`name = ${github[1]}`);
         console.log(`#date-since = ${$('#date-since').val()}`);
         console.log(`#date-until = ${$('#date-until').val()}`);
+        $("#myspinner").show();
         $.ajax({
             async: true,
             type: 'POST',
@@ -107,10 +112,12 @@ $(document).ready(function(){
         }).done(function(data, status){
             console.log("Data: " + JSON.stringify(data) + "\nStatus: " + status);
             $('#search-result').val(data.output.github.output.values[0][5]);
+            $("#myspinner").hide();
             console.log("Result: " + data.output.github.output.values[0][5] + "\n");
         }).fail(function(xhr, status, error){
             console.log("Failed: " + error + "\nStatus: " + status);
             $('#search-result').val(status);
+            $("#myspinner").hide();
         });
         console.log("button action done");
     });

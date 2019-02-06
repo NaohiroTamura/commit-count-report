@@ -1,4 +1,4 @@
-NPM := npm8
+NPM := npm
 VENDOR_DIR := assets/vendor/
 JEKYLL := bundle exec jekyll
 
