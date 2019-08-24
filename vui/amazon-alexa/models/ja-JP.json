@@ -1,0 +1,191 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "オープンソース",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "OssRepositoryIntent",
+                    "slots": [
+                        {
+                            "name": "repository",
+                            "type": "OssRepository",
+                            "samples": [
+                                "{repository} です",
+                                "{repository}"
+                            ]
+                        },
+                        {
+                            "name": "startdate",
+                            "type": "AMAZON.DATE",
+                            "samples": [
+                                "{startdate} から",
+                                "{startdate}"
+                            ]
+                        },
+                        {
+                            "name": "enddate",
+                            "type": "AMAZON.DATE",
+                            "samples": [
+                                "{enddate} まで",
+                                "{enddate}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "リポジトリ {repository} への {startdate} から {enddate} までの貢献数は",
+                        " {startdate} から {enddate} までのリポジトリ {repository} への貢献数は",
+                        " {repository} への {startdate} から {enddate} までの貢献数は",
+                        "{startdate} から {enddate} までの {repository} への貢献数は",
+                        "{repository} への貢献数は",
+                        "貢献数は"
+                    ]
+                }
+            ],
+            "types": [
+                {
+                    "name": "OssRepository",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "faasshell",
+                                "synonyms": [
+                                    "一番目",
+                                    "ファーシェル",
+                                    "fs"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "buildah",
+                                "synonyms": [
+                                    "二番目",
+                                    "ビルダー",
+                                    "bl"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "kubernetes",
+                                "synonyms": [
+                                    "三番目",
+                                    "クバネティス",
+                                    "kn"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "dialog": {
+            "intents": [
+                {
+                    "name": "OssRepositoryIntent",
+                    "delegationStrategy": "ALWAYS",
+                    "confirmationRequired": true,
+                    "prompts": {
+                        "confirmation": "Confirm.Intent.1321921534951"
+                    },
+                    "slots": [
+                        {
+                            "name": "repository",
+                            "type": "OssRepository",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1321921534951.1106407026069"
+                            }
+                        },
+                        {
+                            "name": "startdate",
+                            "type": "AMAZON.DATE",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1183936397702.1515917081342"
+                            }
+                        },
+                        {
+                            "name": "enddate",
+                            "type": "AMAZON.DATE",
+                            "confirmationRequired": false,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "elicitation": "Elicit.Slot.1183936397702.778828142497"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "delegationStrategy": "ALWAYS"
+        },
+        "prompts": [
+            {
+                "id": "Elicit.Slot.1183936397702.1515917081342",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "開始日は"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "知りたい貢献数の開始日は"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1183936397702.778828142497",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "終了日は"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "知りたい貢献数の終了日は"
+                    }
+                ]
+            },
+            {
+                "id": "Elicit.Slot.1321921534951.1106407026069",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "リポジトリは"
+                    },
+                    {
+                        "type": "PlainText",
+                        "value": "貢献数を知りたいリポジトリは"
+                    }
+                ]
+            },
+            {
+                "id": "Confirm.Intent.1321921534951",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "リポジトリ{repository}の{startdate}から{enddate}までの貢献数でよろしいですか"
+                    }
+                ]
+            }
+        ]
+    }
+}
