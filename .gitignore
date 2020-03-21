@@ -11,4 +11,6 @@ vendor/bundle
 node_modules
 .sass-cache
 assets/vendor
+docs/vui
 .ask
+.firebaserc
