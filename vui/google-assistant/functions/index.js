@@ -111,13 +111,13 @@ app.intent('duration', (conv, params, datetime) => {
                 `${start.date.month}月` +
                 `${start.date.day}日` +
                 `${start.time.hours || 0}時` +
-                `${start.time.minutes || 0}分から` +
-                `${end.date.year}年` +
+                // `${start.time.minutes || 0}分` +
+                `から${end.date.year}年` +
                 `${end.date.month}月` +
                 `${end.date.day}日` +
                 `${end.time.hours || 0}時` +
-                `${end.time.minutes || 0}分までの` +
-                `OSS リポジトリ${repository}` +
+                // `${end.time.minutes || 0}分` +
+                `までのOSS リポジトリ${repository}` +
                 `への貢献数でよろしいですか？`
             ));
     }
