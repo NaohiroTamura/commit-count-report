@@ -10,3 +10,7 @@ naohirot@bionic:~/work/github/commit-count-report[master]$ make serve
 
 naohirot@bionic:~/work/github/commit-count-report[master]$ make generate-githubpages
 
+
+# Another Commit Count Report Implementation
+
+yoshi6jp's React Web GUI https://github.com/yoshi6jp/commit-count-report
