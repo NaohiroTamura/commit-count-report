@@ -18,7 +18,7 @@ const LaunchRequestHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
     handle(handlerInput) {
-        const speakOutput = 'ようこそ、貢献数レポートへ。';
+        const speakOutput = 'ようこそ、貢献数を知りたいオーエスエスリポジトリは？';
         return handlerInput.responseBuilder
             .speak(speakOutput)
             .reprompt(speakOutput)

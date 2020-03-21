@@ -48,6 +48,7 @@
                         }
                     ],
                     "samples": [
+                        "{repository}",
                         "リポジトリ {repository} への {startdate} から {enddate} までの貢献数は",
                         " {startdate} から {enddate} までのリポジトリ {repository} への貢献数は",
                         " {repository} への {startdate} から {enddate} までの貢献数は",

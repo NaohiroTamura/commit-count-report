@@ -51,7 +51,8 @@ app.intent('Default Welcome Intent', (conv) => {
             permissions: 'NAME',
         }));
     } else {
-        conv.ask(`ようこそ ${name} さん、 貢献数を知りたいOSSリポジトリは？`);
+        //conv.ask(`ようこそ ${name} さん、 貢献数を知りたいOSSリポジトリは？`);
+        conv.ask(`ようこそ、 貢献数を知りたいOSSリポジトリは？`);
         conv.ask(new Suggestions('faasshell', 'buildah', 'kubernetes'));
     }
 });

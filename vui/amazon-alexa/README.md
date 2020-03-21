@@ -1,3 +1,11 @@
-naohirot@bionic:~/work/github/commit-count-report/vui/amazon-alexa/lambda/custom[master]$ npm install
+# Alexa Skill Kit deployment steps
 
-naohirot@bionic:~/work/github/commit-count-report/vui/amazon-alexa[master]$ ask deploy
+```
+$ ask init --no-browser
+
+$ npm install
+
+$ export AWS_REGION=xx-xxxx-x
+
+$ ask deploy
+```
